@@ -12,3 +12,5 @@ func _ready() -> void:
 	
 	Global.player_1 = player_1
 	Global.player_2 = player_2
+	
+	Global.current_turn = player_1

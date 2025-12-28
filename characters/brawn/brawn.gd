@@ -39,6 +39,10 @@ func _process(delta: float) -> void:
 	for hitbox in hitboxes:
 		hitbox.disabled = not enable_hitbox
 	
+	if Global.current_turn != self:
+		# If it ain't yo turn, you can't do stuff
+		return
+	
 	if control_type == control_types.PLAYER:
 		player_component.move_handle_player()
 		player_component.attack_handle_player()

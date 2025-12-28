@@ -48,13 +48,10 @@ theme_override_font_sizes/font_size = 40
 text = "Esc to quit"
 
 [node name="who_turn" type="VBoxContainer" parent="GUI"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -262.0
-offset_right = 253.0
-offset_bottom = -193.0
-grow_vertical = 0
+unique_name_in_owner = true
+offset_top = 853.0
+offset_right = 202.0
+offset_bottom = 967.0
 script = ExtResource("6_2v4l3")
 
 [node name="turn" type="Label" parent="GUI/who_turn"]
@@ -65,11 +62,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="stats" type="HBoxContainer" parent="GUI"]
+unique_name_in_owner = true
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -142.0
-offset_right = 296.0
+offset_top = -114.0
+offset_right = 526.0
 grow_vertical = 0
 
 [node name="hps" type="VBoxContainer" parent="GUI/stats"]
