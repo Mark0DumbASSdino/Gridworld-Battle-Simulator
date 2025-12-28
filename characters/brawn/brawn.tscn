@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2rtvdp2w0mqt"]
+
+[ext_resource type="Script" uid="uid://cctmir7wtua12" path="res://characters/brawn/brawn.gd" id="1_k1kry"]
+[ext_resource type="Texture2D" uid="uid://dbfemq6g1nagq" path="res://art/icon.svg" id="2_3xfdu"]
+
+[node name="brawn" type="Node2D"]
+script = ExtResource("1_k1kry")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_3xfdu")
