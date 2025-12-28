@@ -8,8 +8,6 @@ class_name PlayerComponent
 
 @export var grid_limit_component : GridLimitComponent
 
-var allow_attack : bool = true
-
 func move_handle_player() -> void:
 	if p.energy <= 0:
 		# Disallows moving when you ran out of energy
@@ -31,11 +29,20 @@ func attack_handle_player() -> void:
 	
 	if (
 			Input.is_action_just_pressed("attack") and
-			allow_attack
+			p.allow_attack
 		):
 		p.attacked()
-		p.enable_hitbox = true
-		allow_attack = false
-		await get_tree().create_timer(0.1).timeout
-		p.enable_hitbox = false
-		allow_attack = true
+
+func end_turn_handle_player() -> void:
+	
+	if (
+			Input.is_action_just_pressed("end_turn") and 
+			Global.current_turn == p and 
+			p.allow_end_turn
+			):
+		if p == Global.player_1:
+			Global.current_turn = Global.player_2
+			Global.turn_changed.emit(Global.player_2)
+		elif p == Global.player_2:
+			Global.current_turn = Global.player_1
+			Global.turn_changed.emit(Global.player_1)

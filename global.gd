@@ -12,3 +12,5 @@ const grid_bounds_top_left : Vector2 = Vector2(
 const grid_bounds_bot_right : Vector2 = Vector2(
 	3, 2
 )
+
+signal turn_changed(to_who: Character)

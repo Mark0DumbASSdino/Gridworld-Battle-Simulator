@@ -3,7 +3,7 @@ extends Character
 ## 20 HP, 3 Energy
 ## Ts finna be the only character
 ## Cuz having 3 characters AND the q learning rl system thingy
-## Would make me wanna shoot myself /j
+## Would make me wanna shoot myself /j4
 ## fr tho
 class_name Brawn
 
@@ -15,6 +15,8 @@ class_name Brawn
 
 var desired_pos : Vector2
 var enable_hitbox : bool = false
+var allow_end_turn : bool = true
+var allow_attack : bool = true
 
 const pos_lerp_weight : float = 20
 
@@ -26,6 +28,7 @@ func _ready() -> void:
 	# Signal Connections
 	%hitbox.area_entered.connect(_hitbox_enter)
 	%hurtbox.area_entered.connect(_hurtbox_enter)
+	Global.turn_changed.connect(my_turn_started)
 
 func _process(delta: float) -> void:
 	
@@ -46,6 +49,7 @@ func _process(delta: float) -> void:
 	if control_type == control_types.PLAYER:
 		player_component.move_handle_player()
 		player_component.attack_handle_player()
+		player_component.end_turn_handle_player()
 
 func moved() -> void:
 	energy -= 1
@@ -57,6 +61,12 @@ func attacked() -> void:
 	anim.stop()
 	anim.play("attack")
 
+	enable_hitbox = true
+	allow_attack = false
+	await get_tree().create_timer(0.1).timeout
+	enable_hitbox = false
+	allow_attack = true
+
 func _hitbox_enter(area: Area2D) -> void:
 	if area.name == "hurtbox":
 		pass
@@ -65,3 +75,14 @@ func _hurtbox_enter(area: Area2D) -> void:
 	if area.name == "hitbox":
 		# Taking damage
 		hp -= 1
+		if hp <= 0:
+			Global.current_turn = null
+			
+
+func my_turn_started(_to_who: Character) -> void:
+	#print("It's my turn!: ", self, Global.current_turn)
+	energy = max_energy
+	
+	allow_end_turn = false
+	await get_tree().process_frame
+	allow_end_turn = true

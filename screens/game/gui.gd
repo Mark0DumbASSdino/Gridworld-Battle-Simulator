@@ -11,3 +11,4 @@ func _process(delta: float) -> void:
 	%who_turn.global_position.y = (
 		850 + (sin(time) * 10)
 	)
+	

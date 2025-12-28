@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://dht24cky5txab"]
+[gd_scene load_steps=11 format=4 uid="uid://dht24cky5txab"]
 
 [ext_resource type="Script" uid="uid://r8grr5jdrmnm" path="res://screens/game/game.gd" id="1_eyx8b"]
 [ext_resource type="TileSet" uid="uid://b8xkp1j5atufr" path="res://tiles.tres" id="2_khowf"]
@@ -9,6 +9,9 @@
 [ext_resource type="LabelSettings" uid="uid://cel2a2qsy4ryx" path="res://gui_txt.tres" id="7_uain1"]
 [ext_resource type="Script" uid="uid://skessnlaovyi" path="res://screens/game/hps.gd" id="8_18b3j"]
 [ext_resource type="Script" uid="uid://yrvn8yyxh6wx" path="res://screens/game/energies.gd" id="8_cpxdg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_18b3j"]
+font_size = 100
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_eyx8b")
@@ -26,17 +29,16 @@ tile_set = ExtResource("2_khowf")
 
 [node name="entities" type="Node2D" parent="." node_paths=PackedStringArray("player_1", "player_2")]
 script = ExtResource("3_yflor")
-player_1 = NodePath("brawn")
-player_2 = NodePath("brawn2")
+player_1 = NodePath("P1")
+player_2 = NodePath("P2")
 
-[node name="brawn" parent="entities" instance=ExtResource("4_npd5f")]
+[node name="P1" parent="entities" instance=ExtResource("4_npd5f")]
 position = Vector2(-64, 64)
 start_pos = Vector2(-2, 2)
 
-[node name="brawn2" parent="entities" instance=ExtResource("4_npd5f")]
+[node name="P2" parent="entities" instance=ExtResource("4_npd5f")]
 position = Vector2(96, -32)
 start_pos = Vector2(3, -1)
-control_type = 1
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("5_g1ktd")
@@ -55,6 +57,7 @@ offset_bottom = 967.0
 script = ExtResource("6_2v4l3")
 
 [node name="turn" type="Label" parent="GUI/who_turn"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "LOL LMAO"
 label_settings = ExtResource("7_uain1")
@@ -101,3 +104,14 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "P2 ENERGY: 6/9"
 label_settings = ExtResource("7_uain1")
+
+[node name="win" type="Label" parent="GUI"]
+unique_name_in_owner = true
+offset_left = 98.0
+offset_top = 64.0
+offset_right = 1053.0
+offset_bottom = 367.0
+text = "PLAYER 1 WINS!!!"
+label_settings = SubResource("LabelSettings_18b3j")
+horizontal_alignment = 1
+vertical_alignment = 1

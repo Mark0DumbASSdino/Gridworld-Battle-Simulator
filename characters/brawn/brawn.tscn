@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2rtvdp2w0mqt"]
+[gd_scene load_steps=12 format=3 uid="uid://c2rtvdp2w0mqt"]
 
 [ext_resource type="Script" uid="uid://cctmir7wtua12" path="res://characters/brawn/brawn.gd" id="1_k1kry"]
 [ext_resource type="Texture2D" uid="uid://dbfemq6g1nagq" path="res://art/icon.svg" id="2_3xfdu"]
 [ext_resource type="PackedScene" uid="uid://b48imhemvih3s" path="res://character_components/player_component/player_component.tscn" id="3_mfq06"]
 [ext_resource type="PackedScene" uid="uid://dqqd07e06tham" path="res://character_components/grid_limit_component/grid_limit_component.tscn" id="4_2nft6"]
+[ext_resource type="Texture2D" uid="uid://7pd2d2tvj3a7" path="res://art/Trail2.png" id="5_x4tdm"]
 
 [sub_resource type="Animation" id="Animation_2nft6"]
 resource_name = "move"
@@ -33,6 +34,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("attack_visual:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_x4tdm"]
 length = 0.001
@@ -59,6 +72,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("attack_visual:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("attack_visual:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_r5pni"]
@@ -88,6 +125,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("attack_visual:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("attack_visual:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x4tdm"]
@@ -159,3 +220,43 @@ collision_mask = 2
 [node name="hubc" type="CollisionShape2D" parent="hurtbox"]
 shape = SubResource("RectangleShape2D_2nft6")
 debug_color = Color(1.7808378e-06, 0.6353858, 0.41399652, 0.24313726)
+
+[node name="attack_visual" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+scale = Vector2(1e-05, 1e-05)
+
+[node name="right" type="Sprite2D" parent="attack_visual"]
+position = Vector2(10, 0)
+scale = Vector2(0.5, 0.25)
+texture = ExtResource("5_x4tdm")
+hframes = 2
+vframes = 2
+
+[node name="down" type="Sprite2D" parent="attack_visual"]
+position = Vector2(0, 10)
+rotation = 1.5707964
+scale = Vector2(0.5, 0.25)
+texture = ExtResource("5_x4tdm")
+hframes = 2
+vframes = 2
+
+[node name="left" type="Sprite2D" parent="attack_visual"]
+position = Vector2(-10, 0)
+rotation = 3.1415927
+scale = Vector2(0.5, 0.25)
+texture = ExtResource("5_x4tdm")
+hframes = 2
+vframes = 2
+
+[node name="up" type="Sprite2D" parent="attack_visual"]
+position = Vector2(0, -10)
+rotation = 4.712389
+scale = Vector2(0.5, 0.25)
+texture = ExtResource("5_x4tdm")
+hframes = 2
+vframes = 2
+
+[node name="Label" type="Label" parent="attack_visual"]
+offset_right = 40.0
+offset_bottom = 23.0
