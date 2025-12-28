@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu16bkps6aln6"]
+
+[ext_resource type="Script" uid="uid://0ruwufi82yaf" path="res://screens/start/start.gd" id="1_1g8oq"]
+
+[node name="start" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1g8oq")
+
+[node name="title_text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_right = 350.0
+offset_bottom = 137.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 100
+text = "Title Or Smthn"
+
+[node name="buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -343.0
+offset_right = 109.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="play" type="Button" parent="buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Play"
+
+[node name="quit" type="Button" parent="buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Quit"
