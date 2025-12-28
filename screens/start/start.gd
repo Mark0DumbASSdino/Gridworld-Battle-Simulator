@@ -10,7 +10,7 @@ func _ready() -> void:
 	%quit.pressed.connect(_quit_pressed)
 
 func _play_pressed() -> void:
-	pass
+	get_tree().change_scene_to_file("res://screens/game/game.tscn")
 
 func _quit_pressed() -> void:
 	get_tree().quit()
