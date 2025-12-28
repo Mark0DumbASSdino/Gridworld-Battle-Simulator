@@ -7,4 +7,21 @@ extends Character
 class_name Brawn
 
 func _ready() -> void:
-	pass
+	grid_pos = start_pos
+
+func _process(_delta: float) -> void:
+	
+	global_position = grid_pos * 32
+	
+	if !ai:
+		_move_handle()
+
+func _move_handle() -> void:
+	if Input.is_action_just_pressed("right"):
+		grid_pos.x +=1
+	if Input.is_action_just_pressed("left"):
+		grid_pos.x -=1
+	if Input.is_action_just_pressed("up"):
+		grid_pos.y -=1
+	if Input.is_action_just_pressed("down"):
+		grid_pos.y +=1
