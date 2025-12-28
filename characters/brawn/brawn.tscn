@@ -1,10 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2rtvdp2w0mqt"]
+[gd_scene load_steps=5 format=3 uid="uid://c2rtvdp2w0mqt"]
 
 [ext_resource type="Script" uid="uid://cctmir7wtua12" path="res://characters/brawn/brawn.gd" id="1_k1kry"]
 [ext_resource type="Texture2D" uid="uid://dbfemq6g1nagq" path="res://art/icon.svg" id="2_3xfdu"]
+[ext_resource type="PackedScene" uid="uid://b48imhemvih3s" path="res://character_components/player_component/player_component.tscn" id="3_mfq06"]
+[ext_resource type="PackedScene" uid="uid://dqqd07e06tham" path="res://character_components/grid_limit_component/grid_limit_component.tscn" id="4_2nft6"]
 
 [node name="brawn" type="Node2D"]
 script = ExtResource("1_k1kry")
+max_energy = 53
+
+[node name="player_component" parent="." node_paths=PackedStringArray("grid_limit_component") instance=ExtResource("3_mfq06")]
+unique_name_in_owner = true
+grid_limit_component = NodePath("../grid_limit_component")
+
+[node name="grid_limit_component" parent="." instance=ExtResource("4_2nft6")]
+
+[node name="anim" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 
 [node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)

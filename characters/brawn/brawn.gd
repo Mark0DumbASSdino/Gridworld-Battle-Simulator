@@ -1,27 +1,35 @@
 extends Character
 ## Brawny (Basic Tanky Brawler)
-## 20 HP, 2 Move Points, 1 Action Point
-## Passive(Tough Guy)- Every 4th hit he takes will deal 0 damage.
-## Attack(Mega Punch)- Deals 6 damage, knocks the enemy back by two blocks
-## Ability(Brave Jump)- Jumps to a location that is up to 2 blocks away, then slams down to deal 3 dmg in a 3x3 area.
+## 20 HP, 3 Energy
+## Ts finna be the only character
+## Cuz having 3 characters AND the q learning rl system thingy
+## Would make me wanna shoot myself /j
+## fr tho
 class_name Brawn
+
+@onready var anim: AnimationPlayer = %anim
+@onready var player_component: PlayerComponent = %player_component
+
+var desired_pos : Vector2
+
+const pos_lerp_weight : float = 20
 
 func _ready() -> void:
 	grid_pos = start_pos
+	hp = max_hp
+	energy = max_energy
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	
-	global_position = grid_pos * 32
+	desired_pos = grid_pos * Global.tile_size
 	
-	if !ai:
-		_move_handle()
+	global_position = global_position.lerp(
+		desired_pos, 
+		pos_lerp_weight * delta
+		)
+	
+	if control_type == control_types.PLAYER:
+		player_component.move_handle_player()
 
-func _move_handle() -> void:
-	if Input.is_action_just_pressed("right"):
-		grid_pos.x +=1
-	if Input.is_action_just_pressed("left"):
-		grid_pos.x -=1
-	if Input.is_action_just_pressed("up"):
-		grid_pos.y -=1
-	if Input.is_action_just_pressed("down"):
-		grid_pos.y +=1
+func moved() -> void:
+	energy -= 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://dht24cky5txab"]
+[gd_scene load_steps=9 format=4 uid="uid://dht24cky5txab"]
 
 [ext_resource type="Script" uid="uid://r8grr5jdrmnm" path="res://screens/game/game.gd" id="1_eyx8b"]
 [ext_resource type="TileSet" uid="uid://b8xkp1j5atufr" path="res://tiles.tres" id="2_khowf"]
@@ -7,12 +7,13 @@
 [ext_resource type="Script" uid="uid://cny5npmsx0hg3" path="res://screens/game/gui.gd" id="5_g1ktd"]
 [ext_resource type="Script" uid="uid://bmtaxna3hlbl5" path="res://screens/game/who_turn.gd" id="6_2v4l3"]
 [ext_resource type="LabelSettings" uid="uid://cel2a2qsy4ryx" path="res://gui_txt.tres" id="7_uain1"]
+[ext_resource type="Script" uid="uid://yrvn8yyxh6wx" path="res://screens/game/energies.gd" id="8_cpxdg"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_eyx8b")
 
 [node name="cam" type="Camera2D" parent="."]
-position = Vector2(16, 16)
+position = Vector2(246, 16)
 zoom = Vector2(2.4, 2.4)
 
 [node name="tiles_parent" type="Node2D" parent="."]
@@ -22,8 +23,10 @@ position = Vector2(16, 16)
 tile_map_data = PackedByteArray("AAD/////AgAFAAAAAAD//wAAAgAFAAAAAAAAAP//AgAFAAAAAAAAAAAAAgAFAAAAAAD///7/AgAFAAAAAAAAAP7/AgAFAAAAAAD+//7/AgAFAAAAAAD+////AgAFAAAAAAD+/wAAAgAFAAAAAAABAP7/AgAFAAAAAAABAP//AgAFAAAAAAABAAAAAgAFAAAAAAD9//7/AgAFAAAAAAD9////AgAFAAAAAAD9/wAAAgAFAAAAAAACAP7/AgAFAAAAAAACAP//AgAFAAAAAAACAAAAAgAFAAAAAAD9/wEAAgAFAAAAAAD+/wEAAgAFAAAAAAD//wEAAgAFAAAAAAAAAAEAAgAFAAAAAAABAAEAAgAFAAAAAAACAAEAAgAFAAAAAAA=")
 tile_set = ExtResource("2_khowf")
 
-[node name="entities" type="Node2D" parent="."]
+[node name="entities" type="Node2D" parent="." node_paths=PackedStringArray("player_1", "player_2")]
 script = ExtResource("3_yflor")
+player_1 = NodePath("brawn")
+player_2 = NodePath("brawn2")
 
 [node name="brawn" parent="entities" instance=ExtResource("4_npd5f")]
 position = Vector2(-64, 64)
@@ -32,7 +35,7 @@ start_pos = Vector2(-2, 2)
 [node name="brawn2" parent="entities" instance=ExtResource("4_npd5f")]
 position = Vector2(96, -32)
 start_pos = Vector2(3, -1)
-ai = true
+control_type = 1
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("5_g1ktd")
@@ -49,9 +52,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
+offset_left = -925.0
+offset_top = -285.0
+offset_right = -672.0
+offset_bottom = -216.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("6_2v4l3")
@@ -63,18 +67,21 @@ label_settings = ExtResource("7_uain1")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
+[node name="energies" type="VBoxContainer" parent="GUI"]
 offset_left = 31.0
 offset_top = 916.0
 offset_right = 323.0
 offset_bottom = 1058.0
+script = ExtResource("8_cpxdg")
 
-[node name="p1_energy" type="Label" parent="GUI/VBoxContainer"]
+[node name="p1_energy" type="Label" parent="GUI/energies"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "P1 ENERGY: "
 label_settings = ExtResource("7_uain1")
 
-[node name="p2_energy" type="Label" parent="GUI/VBoxContainer"]
+[node name="p2_energy" type="Label" parent="GUI/energies"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "P2 ENERGY: "
 label_settings = ExtResource("7_uain1")
