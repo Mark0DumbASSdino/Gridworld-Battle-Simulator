@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://dht24cky5txab"]
+[gd_scene load_steps=10 format=4 uid="uid://dht24cky5txab"]
 
 [ext_resource type="Script" uid="uid://r8grr5jdrmnm" path="res://screens/game/game.gd" id="1_eyx8b"]
 [ext_resource type="TileSet" uid="uid://b8xkp1j5atufr" path="res://tiles.tres" id="2_khowf"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cny5npmsx0hg3" path="res://screens/game/gui.gd" id="5_g1ktd"]
 [ext_resource type="Script" uid="uid://bmtaxna3hlbl5" path="res://screens/game/who_turn.gd" id="6_2v4l3"]
 [ext_resource type="LabelSettings" uid="uid://cel2a2qsy4ryx" path="res://gui_txt.tres" id="7_uain1"]
+[ext_resource type="Script" uid="uid://skessnlaovyi" path="res://screens/game/hps.gd" id="8_18b3j"]
 [ext_resource type="Script" uid="uid://yrvn8yyxh6wx" path="res://screens/game/energies.gd" id="8_cpxdg"]
 
 [node name="game" type="Node2D"]
@@ -47,16 +48,12 @@ theme_override_font_sizes/font_size = 40
 text = "Esc to quit"
 
 [node name="who_turn" type="VBoxContainer" parent="GUI"]
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -925.0
-offset_top = -285.0
-offset_right = -672.0
-offset_bottom = -216.0
-grow_horizontal = 2
+offset_top = -262.0
+offset_right = 253.0
+offset_bottom = -193.0
 grow_vertical = 0
 script = ExtResource("6_2v4l3")
 
@@ -67,21 +64,42 @@ label_settings = ExtResource("7_uain1")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="energies" type="VBoxContainer" parent="GUI"]
-offset_left = 31.0
-offset_top = 916.0
-offset_right = 323.0
-offset_bottom = 1058.0
-script = ExtResource("8_cpxdg")
+[node name="stats" type="HBoxContainer" parent="GUI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -142.0
+offset_right = 296.0
+grow_vertical = 0
 
-[node name="p1_energy" type="Label" parent="GUI/energies"]
+[node name="hps" type="VBoxContainer" parent="GUI/stats"]
+layout_mode = 2
+script = ExtResource("8_18b3j")
+
+[node name="p1_hp" type="Label" parent="GUI/stats/hps"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "P1 ENERGY: "
+text = "P1 HP: 6/7 "
 label_settings = ExtResource("7_uain1")
 
-[node name="p2_energy" type="Label" parent="GUI/energies"]
+[node name="p2_hp" type="Label" parent="GUI/stats/hps"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "P2 ENERGY: "
+text = "P2 HP: 2/1"
+label_settings = ExtResource("7_uain1")
+
+[node name="energies" type="VBoxContainer" parent="GUI/stats"]
+layout_mode = 2
+script = ExtResource("8_cpxdg")
+
+[node name="p1_energy" type="Label" parent="GUI/stats/energies"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "P1 ENERGY: 4/20"
+label_settings = ExtResource("7_uain1")
+
+[node name="p2_energy" type="Label" parent="GUI/stats/energies"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "P2 ENERGY: 6/9"
 label_settings = ExtResource("7_uain1")

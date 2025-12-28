@@ -1,9 +1,107 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2rtvdp2w0mqt"]
+[gd_scene load_steps=11 format=3 uid="uid://c2rtvdp2w0mqt"]
 
 [ext_resource type="Script" uid="uid://cctmir7wtua12" path="res://characters/brawn/brawn.gd" id="1_k1kry"]
 [ext_resource type="Texture2D" uid="uid://dbfemq6g1nagq" path="res://art/icon.svg" id="2_3xfdu"]
 [ext_resource type="PackedScene" uid="uid://b48imhemvih3s" path="res://character_components/player_component/player_component.tscn" id="3_mfq06"]
 [ext_resource type="PackedScene" uid="uid://dqqd07e06tham" path="res://character_components/grid_limit_component/grid_limit_component.tscn" id="4_2nft6"]
+
+[sub_resource type="Animation" id="Animation_2nft6"]
+resource_name = "move"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.25, 0.25), Vector2(0.3, 0.2), Vector2(0.25, 0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x4tdm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.25, 0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r5pni"]
+resource_name = "attack"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.25, 0.25), Vector2(0.2, 0.3), Vector2(0.25, 0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x4tdm"]
+_data = {
+&"RESET": SubResource("Animation_x4tdm"),
+&"attack": SubResource("Animation_r5pni"),
+&"move": SubResource("Animation_2nft6")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5pni"]
+size = Vector2(2, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2nft6"]
+size = Vector2(30, 30)
 
 [node name="brawn" type="Node2D"]
 script = ExtResource("1_k1kry")
@@ -17,7 +115,48 @@ grid_limit_component = NodePath("../grid_limit_component")
 
 [node name="anim" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_x4tdm")
+}
 
 [node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_3xfdu")
+
+[node name="hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 2
+
+[node name="hibc" type="CollisionShape2D" parent="hitbox"]
+unique_name_in_owner = true
+position = Vector2(-32, 0)
+shape = SubResource("RectangleShape2D_r5pni")
+disabled = true
+
+[node name="hibc2" type="CollisionShape2D" parent="hitbox"]
+unique_name_in_owner = true
+position = Vector2(32, 0)
+shape = SubResource("RectangleShape2D_r5pni")
+disabled = true
+
+[node name="hibc3" type="CollisionShape2D" parent="hitbox"]
+unique_name_in_owner = true
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_r5pni")
+disabled = true
+
+[node name="hibc4" type="CollisionShape2D" parent="hitbox"]
+unique_name_in_owner = true
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_r5pni")
+disabled = true
+
+[node name="hurtbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 2
+
+[node name="hubc" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("RectangleShape2D_2nft6")
+debug_color = Color(1.7808378e-06, 0.6353858, 0.41399652, 0.24313726)
