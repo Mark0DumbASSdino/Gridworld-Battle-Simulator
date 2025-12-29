@@ -10,6 +10,7 @@ class_name Brawn
 @onready var anim: AnimationPlayer = %anim
 @onready var player_component: PlayerComponent = %player_component
 @onready var scripted_ai_component: ScriptedAIComponent = %scripted_ai_component
+@onready var grid_limit_component: GridLimitComponent = %grid_limit_component
 @onready var hitboxes : Array[CollisionShape2D] = [
 	%hibc, %hibc2, %hibc3, %hibc4
 ]
@@ -79,14 +80,26 @@ func attacked() -> void:
 
 func _hitbox_enter(area: Area2D) -> void:
 	if area.name == "hurtbox" and area.get_parent() is Character:
+		
+		GSignals.hit.emit(grid_limit_component.is_player_1, self)
+		
 		if area.get_parent().hp <= 0:
+			
+			GSignals.win.emit(grid_limit_component.is_player_1, self)
+			
 			Global.win.emit(self)
 
 func _hurtbox_enter(area: Area2D) -> void:
 	if area.name == "hitbox":
 		# Taking damage
 		hp -= 1
+		
+		GSignals.took_damage.emit(grid_limit_component.is_player_1, self)
+		
 		if hp <= 0:
+			
+			GSignals.lose.emit(grid_limit_component.is_player_1, self)
+			
 			Global.current_turn = null
 
 func my_turn_started(_to_who: Character) -> void:

@@ -45,5 +45,5 @@ func _process(delta: float) -> void:
 			get_tree().reload_current_scene()
 
 func _win(winning_char: Character) -> void:
-	print(winning_char.name, " Wins!")
+	#print(winning_char.name, " Wins!")
 	someone_won = true

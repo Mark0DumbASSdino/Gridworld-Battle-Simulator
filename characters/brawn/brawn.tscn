@@ -177,6 +177,7 @@ unique_name_in_owner = true
 grid_limit_component = NodePath("../grid_limit_component")
 
 [node name="grid_limit_component" parent="." instance=ExtResource("4_2nft6")]
+unique_name_in_owner = true
 
 [node name="anim" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
