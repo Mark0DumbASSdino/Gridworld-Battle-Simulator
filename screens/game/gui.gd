@@ -16,8 +16,10 @@ func _process(delta: float) -> void:
 		960 + (sin(time) * 10)
 	)
 	%who_turn.global_position.y = (
-		850 + (sin(time) * 10)
+		750 + (sin(time) * 10)
 	)
+	
+	%wins.text = str(Global.p1_wins," | ", Global.p2_wins)
 
 func _win(winning_char: Character) -> void:
 	%win.show()

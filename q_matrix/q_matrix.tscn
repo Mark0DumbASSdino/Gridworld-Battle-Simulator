@@ -1,0 +1,156 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs1uj0yvdyy4j"]
+
+[ext_resource type="Script" uid="uid://b7lsb2j28acgs" path="res://q_matrix/q_matrix.gd" id="1_ni2ql"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qpol7"]
+font_size = 20
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="q_matrix" type="Control"]
+z_index = -1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 698.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ni2ql")
+metadata/_edit_vertical_guides_ = [2210.0]
+
+[node name="panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="theDamnTable" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="theDamnTable"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="inputs_row" type="HBoxContainer" parent="theDamnTable/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.14
+alignment = 1
+
+[node name="corner" type="Label" parent="theDamnTable/VBoxContainer/inputs_row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "HP(0,1,2)
+Enemy HP(0,1,2)
+Energy(0,1)
+Distance(0,1,2)
+0-low 1-mid 2-high"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="w" type="Label" parent="theDamnTable/VBoxContainer/inputs_row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Up (W)"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="a" type="Label" parent="theDamnTable/VBoxContainer/inputs_row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Left (A)"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="s" type="Label" parent="theDamnTable/VBoxContainer/inputs_row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Down (S)"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="d" type="Label" parent="theDamnTable/VBoxContainer/inputs_row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Right (D)"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="atk" type="Label" parent="theDamnTable/VBoxContainer/inputs_row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Attack (Space)"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="end_turn" type="Label" parent="theDamnTable/VBoxContainer/inputs_row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "End Turn (E)"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="gs1" type="HBoxContainer" parent="theDamnTable/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.14
+alignment = 1
+
+[node name="gs" type="Label" parent="theDamnTable/VBoxContainer/gs1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0000
+"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="w" type="Label" parent="theDamnTable/VBoxContainer/gs1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="a" type="Label" parent="theDamnTable/VBoxContainer/gs1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="s" type="Label" parent="theDamnTable/VBoxContainer/gs1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="d" type="Label" parent="theDamnTable/VBoxContainer/gs1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="atk" type="Label" parent="theDamnTable/VBoxContainer/gs1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+
+[node name="end_turn" type="Label" parent="theDamnTable/VBoxContainer/gs1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")

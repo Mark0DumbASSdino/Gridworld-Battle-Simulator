@@ -13,6 +13,7 @@ enum states {
 	DEFENSIVE, # runs away directly
 }
 var current_state : states
+var def_attacks_amount : int = 1 ## For the defensive state
 
 func _ready() -> void:
 	pass
@@ -44,7 +45,12 @@ func attack_handle_script_ai() -> void:
 		
 	elif current_state == states.DEFENSIVE:
 		
-		pass
+		if (
+				p.distance_from_opponent.length() <= 1 and
+				p.allow_attack
+			):
+			
+			p.attacked()
 
 func end_turn_handle_scripted_ai() -> void:
 	
@@ -53,7 +59,9 @@ func end_turn_handle_scripted_ai() -> void:
 			Global.current_turn == p and 
 			p.allow_end_turn
 			):
-			
+		
+		def_attacks_amount = 1
+		
 		if p == Global.player_1:
 			Global.current_turn = Global.player_2
 			Global.turn_changed.emit(Global.player_2)
@@ -71,7 +79,9 @@ func _determine_state() -> void:
 				1,2: current_state = states.AGGRESSIVE
 				3: current_state = states.DEFENSIVE
 		p.hp_states.LOW:
-			current_state = states.DEFENSIVE
+			match randi_range(1,5):
+				1,2,3,4: current_state = states.DEFENSIVE
+				5: current_state = states.AGGRESSIVE
 
 func _move_toward() -> void:
 	if p.distance_from_opponent.x > 0:

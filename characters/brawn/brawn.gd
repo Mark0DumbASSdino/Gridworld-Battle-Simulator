@@ -3,7 +3,7 @@ extends Character
 ## 20 HP, 3 Energy
 ## Ts finna be the only character
 ## Cuz having 3 characters AND the q learning rl system thingy
-## Would make me wanna shoot myself /j4
+## Would make me wanna shoot myself /j
 ## fr tho
 class_name Brawn
 
@@ -45,7 +45,8 @@ func _process(delta: float) -> void:
 	for hitbox in hitboxes:
 		hitbox.disabled = not enable_hitbox
 	
-	%Label.text = str(get_hp_state(), get_energy_state())
+	#%Label.text = str(get_hp_state(), get_energy_state())
+	%Label.text = str(Global.get_hp_difference())
 	
 	if Global.current_turn != self:
 		# If it ain't yo turn, you can't do stuff
@@ -94,7 +95,67 @@ func _hitbox_enter(area: Area2D) -> void:
 func _hurtbox_enter(area: Area2D) -> void:
 	if area.name == "hitbox":
 		# Taking damage
-		hp -= 1
+		
+		if grid_limit_component.is_player_1: # Check if it's P1 taking the damage
+			
+			if Global.get_hp_difference() > 0: # If P1 has hp advantage
+				# P1 has more health but is taking damage from P2, so it should have more chance 
+				# of taking crit damage
+				if randf() < 0.5:
+					# 50% chance of taking crit
+					hp -= 2
+				else:
+					# 50% chance not to
+					hp -= 1
+				
+			elif Global.get_hp_difference() < 0: # If P1 has lesser hp/hp disadvantage
+				# P1 has less health but is taking damage from P2, so it should have less chance
+				# of taking crit damage
+				if randf() < 0.1:
+					# 10% chance of taking crit
+					hp -= 2
+				else:
+					# 90% chance not to
+					hp -= 1
+			
+			elif Global.get_hp_difference() == 0: # Noone has advantage
+				if randf() < 0.1:
+					# 20% chance of taking crit
+					hp -= 2
+				else:
+					# 80% chance not to
+					hp -= 1
+		
+		
+		else: # Now it's P2 taking damage
+			if Global.get_hp_difference() < 0: # If P2 has hp advantage
+				# P2 has more health but is taking damage from P1, so it should have more chance 
+				# of taking crit damage
+				if randf() < 0.5:
+					# 50% chance of taking crit
+					hp -= 2
+				else:
+					# 50% chance not to
+					hp -= 1
+				
+			elif Global.get_hp_difference() > 0: # If P2 has lesser hp/hp disadvantage
+				# P2 has less health but is taking damage from P1, so it should have less chance
+				# of taking crit damage
+				if randf() < 0.1:
+					# 10% chance of taking crit
+					hp -= 2
+				else:
+					# 90% chance not to
+					hp -= 1
+			
+			elif Global.get_hp_difference() == 0: # Noone has advantage
+				if randf() < 0.1:
+					# 20% chance of taking crit
+					hp -= 2
+				else:
+					# 80% chance not to
+					hp -= 1
+		
 		
 		GSignals.took_damage.emit(grid_limit_component.is_player_1, self)
 		

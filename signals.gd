@@ -45,6 +45,11 @@ func _win(is_p1:bool, character:Character) -> void:
 		#get_p1_str(is_p1) + " won against " + get_p1_str(!is_p1)
 		#)
 	
+	if is_p1:
+		Global.p1_wins += 1
+	else:
+		Global.p2_wins += 1
+	
 	pass
 
 func _lose(is_p1:bool, character:Character) -> void:
