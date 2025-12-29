@@ -14,6 +14,9 @@ func _ready() -> void:
 	is_player_1 = p == Global.player_1
 
 func move_x(amount: int) -> void:
+	if not p.allow_move:
+		return
+	
 	if amount <= 0: # Going to left / negative
 		if (p.grid_pos.x + amount) < Global.grid_bounds_top_left.x: # Going beyond the left bound:
 			pass
@@ -32,6 +35,9 @@ func move_x(amount: int) -> void:
 	
 
 func move_y(amount: int) -> void:
+	if not p.allow_move:
+		return
+	
 	if amount <= 0: # Going to up / negative
 		if (p.grid_pos.y + amount) < Global.grid_bounds_top_left.y: # Going beyond the top bound
 			pass
@@ -66,3 +72,11 @@ func collision_with_other_player_check(amount_x: int, amount_y: int) -> void: ##
 		else:
 			p.grid_pos = grid_pos_after_move
 			p.moved()
+
+func _process(_delta: float) -> void:
+	if is_player_1:
+		p.distance_from_opponent = Global.player_2.grid_pos - p.grid_pos
+	else:
+		p.distance_from_opponent = Global.player_1.grid_pos - p.grid_pos
+	
+	#%Label.text = str(p.distance_from_opponent, " : ", p.distance_from_opponent.length())

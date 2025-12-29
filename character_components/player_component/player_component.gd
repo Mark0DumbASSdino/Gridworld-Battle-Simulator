@@ -1,5 +1,5 @@
 extends Node2D
-## Component that gets activated when the 
+## Component that is used when the 
 ## control type is player
 ## All its inputs and stuff handled here, move and attack
 class_name PlayerComponent

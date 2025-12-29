@@ -9,6 +9,7 @@ class_name Brawn
 
 @onready var anim: AnimationPlayer = %anim
 @onready var player_component: PlayerComponent = %player_component
+@onready var scripted_ai_component: ScriptedAIComponent = %scripted_ai_component
 @onready var hitboxes : Array[CollisionShape2D] = [
 	%hibc, %hibc2, %hibc3, %hibc4
 ]
@@ -17,6 +18,7 @@ var desired_pos : Vector2
 var enable_hitbox : bool = false
 var allow_end_turn : bool = true
 var allow_attack : bool = true
+var allow_move : bool = true
 
 const pos_lerp_weight : float = 20
 
@@ -50,11 +52,19 @@ func _process(delta: float) -> void:
 		player_component.move_handle_player()
 		player_component.attack_handle_player()
 		player_component.end_turn_handle_player()
+	elif control_type == control_types.SCRIPTED_AI:
+		scripted_ai_component.move_handle_script_ai()
+		scripted_ai_component.attack_handle_script_ai()
+		scripted_ai_component.end_turn_handle_scripted_ai()
 
 func moved() -> void:
 	energy -= 1
 	anim.stop()
 	anim.play("move")
+	
+	allow_move = false
+	await get_tree().create_timer(0.1).timeout
+	allow_move = true
 
 func attacked() -> void:
 	energy -= 1
@@ -80,7 +90,6 @@ func _hurtbox_enter(area: Area2D) -> void:
 			Global.current_turn = null
 
 func my_turn_started(_to_who: Character) -> void:
-	#print("It's my turn!: ", self, Global.current_turn)
 	energy = max_energy
 	
 	allow_end_turn = false

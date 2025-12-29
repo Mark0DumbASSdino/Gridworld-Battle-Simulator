@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2rtvdp2w0mqt"]
+[gd_scene load_steps=13 format=3 uid="uid://c2rtvdp2w0mqt"]
 
 [ext_resource type="Script" uid="uid://cctmir7wtua12" path="res://characters/brawn/brawn.gd" id="1_k1kry"]
 [ext_resource type="Texture2D" uid="uid://dbfemq6g1nagq" path="res://art/icon.svg" id="2_3xfdu"]
 [ext_resource type="PackedScene" uid="uid://b48imhemvih3s" path="res://character_components/player_component/player_component.tscn" id="3_mfq06"]
+[ext_resource type="PackedScene" uid="uid://bwpp048e25aoo" path="res://character_components/scripted_ai_component/scripted_ai_component.tscn" id="3_r5pni"]
 [ext_resource type="PackedScene" uid="uid://dqqd07e06tham" path="res://character_components/grid_limit_component/grid_limit_component.tscn" id="4_2nft6"]
 [ext_resource type="Texture2D" uid="uid://7pd2d2tvj3a7" path="res://art/Trail2.png" id="5_x4tdm"]
 
@@ -166,9 +167,12 @@ size = Vector2(30, 30)
 
 [node name="brawn" type="Node2D"]
 script = ExtResource("1_k1kry")
-max_energy = 50
 
 [node name="player_component" parent="." node_paths=PackedStringArray("grid_limit_component") instance=ExtResource("3_mfq06")]
+unique_name_in_owner = true
+grid_limit_component = NodePath("../grid_limit_component")
+
+[node name="scripted_ai_component" parent="." node_paths=PackedStringArray("grid_limit_component") instance=ExtResource("3_r5pni")]
 unique_name_in_owner = true
 grid_limit_component = NodePath("../grid_limit_component")
 

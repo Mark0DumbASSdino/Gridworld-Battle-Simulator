@@ -17,3 +17,4 @@ var energy : int
 @export var control_type : control_types
 
 var grid_pos : Vector2
+var distance_from_opponent : Vector2
