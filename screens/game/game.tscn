@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dht24cky5txab"]
+[gd_scene load_steps=12 format=4 uid="uid://dht24cky5txab"]
 
 [ext_resource type="Script" uid="uid://r8grr5jdrmnm" path="res://screens/game/game.gd" id="1_eyx8b"]
 [ext_resource type="TileSet" uid="uid://b8xkp1j5atufr" path="res://tiles.tres" id="2_khowf"]
@@ -9,6 +9,12 @@
 [ext_resource type="LabelSettings" uid="uid://cel2a2qsy4ryx" path="res://gui_txt.tres" id="7_uain1"]
 [ext_resource type="Script" uid="uid://skessnlaovyi" path="res://screens/game/hps.gd" id="8_18b3j"]
 [ext_resource type="Script" uid="uid://yrvn8yyxh6wx" path="res://screens/game/energies.gd" id="8_cpxdg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kc255"]
+font_size = 20
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_18b3j"]
 font_size = 100
@@ -26,6 +32,18 @@ position = Vector2(16, 16)
 [node name="tiles" type="TileMapLayer" parent="tiles_parent"]
 tile_map_data = PackedByteArray("AAD/////AgAFAAAAAAD//wAAAgAFAAAAAAAAAP//AgAFAAAAAAAAAAAAAgAFAAAAAAD///7/AgAFAAAAAAAAAP7/AgAFAAAAAAD+//7/AgAFAAAAAAD+////AgAFAAAAAAD+/wAAAgAFAAAAAAABAP7/AgAFAAAAAAABAP//AgAFAAAAAAABAAAAAgAFAAAAAAD9//7/AgAFAAAAAAD9////AgAFAAAAAAD9/wAAAgAFAAAAAAACAP7/AgAFAAAAAAACAP//AgAFAAAAAAACAAAAAgAFAAAAAAD9/wEAAgAFAAAAAAD+/wEAAgAFAAAAAAD//wEAAgAFAAAAAAAAAAEAAgAFAAAAAAABAAEAAgAFAAAAAAACAAEAAgAFAAAAAAA=")
 tile_set = ExtResource("2_khowf")
+
+[node name="arrow" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -126.0
+offset_top = 46.0
+offset_right = -83.0
+offset_bottom = 81.0
+rotation = 1.5707964
+text = "==>"
+label_settings = SubResource("LabelSettings_kc255")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="entities" type="Node2D" parent="." node_paths=PackedStringArray("player_1", "player_2")]
 script = ExtResource("3_yflor")

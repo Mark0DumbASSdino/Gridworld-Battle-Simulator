@@ -5,6 +5,7 @@ class_name EntityContainer
 @export var player_1 : Character
 @export var player_2 : Character
 
+
 func _ready() -> void:
 	if get_children().size() >= 3:
 		printerr("2 PLAYERS ONLY!")

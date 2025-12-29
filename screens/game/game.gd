@@ -4,6 +4,7 @@ extends Node2D
 class_name Game
 
 var someone_won : bool = false
+var arrow_desired_pos : Vector2
 
 func _init() -> void:
 	# Signal connections
@@ -18,6 +19,16 @@ func _input(_event: InputEvent) -> void:
 		someone_won
 		):
 		get_tree().reload_current_scene()
+
+func _process(delta: float) -> void:
+	arrow_desired_pos = (
+		Global.current_turn.global_position + 
+		Vector2(16, -60)
+	)
+	
+	%arrow.global_position = %arrow.global_position.lerp(
+		arrow_desired_pos, 12 * delta
+	)
 
 func _win(winning_char: Character) -> void:
 	print(winning_char.name, " Wins!")
