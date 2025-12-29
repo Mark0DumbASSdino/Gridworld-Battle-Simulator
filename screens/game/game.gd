@@ -3,6 +3,22 @@ extends Node2D
 ## Where the combat & shit happens
 class_name Game
 
+var someone_won : bool = false
+
+func _init() -> void:
+	# Signal connections
+	Global.win.connect(_win)
+
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().change_scene_to_file("res://screens/start/start.tscn")
+	
+	if (
+		Input.is_action_just_pressed("restart") and 
+		someone_won
+		):
+		get_tree().reload_current_scene()
+
+func _win(winning_char: Character) -> void:
+	print(winning_char.name, " Wins!")
+	someone_won = true

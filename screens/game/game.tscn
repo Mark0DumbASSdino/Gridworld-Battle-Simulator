@@ -35,10 +35,12 @@ player_2 = NodePath("P2")
 [node name="P1" parent="entities" instance=ExtResource("4_npd5f")]
 position = Vector2(-64, 64)
 start_pos = Vector2(-2, 2)
+max_hp = 1
 
 [node name="P2" parent="entities" instance=ExtResource("4_npd5f")]
 position = Vector2(96, -32)
 start_pos = Vector2(3, -1)
+max_hp = 1
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("5_g1ktd")
@@ -107,6 +109,7 @@ label_settings = ExtResource("7_uain1")
 
 [node name="win" type="Label" parent="GUI"]
 unique_name_in_owner = true
+visible = false
 offset_left = 98.0
 offset_top = 64.0
 offset_right = 1053.0
@@ -115,3 +118,16 @@ text = "PLAYER 1 WINS!!!"
 label_settings = SubResource("LabelSettings_18b3j")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="controls" type="Label" parent="GUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -593.0
+offset_bottom = 171.0
+grow_horizontal = 0
+text = "WASD to move (uses 1 energy)
+Space to attack (uses 1 energy)
+E to end turn"
+label_settings = ExtResource("7_uain1")
+horizontal_alignment = 2

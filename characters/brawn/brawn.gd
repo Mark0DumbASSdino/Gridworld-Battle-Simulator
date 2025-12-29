@@ -68,8 +68,9 @@ func attacked() -> void:
 	allow_attack = true
 
 func _hitbox_enter(area: Area2D) -> void:
-	if area.name == "hurtbox":
-		pass
+	if area.name == "hurtbox" and area.get_parent() is Character:
+		if area.get_parent().hp <= 0:
+			Global.win.emit(self)
 
 func _hurtbox_enter(area: Area2D) -> void:
 	if area.name == "hitbox":
@@ -77,7 +78,6 @@ func _hurtbox_enter(area: Area2D) -> void:
 		hp -= 1
 		if hp <= 0:
 			Global.current_turn = null
-			
 
 func my_turn_started(_to_who: Character) -> void:
 	#print("It's my turn!: ", self, Global.current_turn)

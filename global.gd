@@ -14,3 +14,4 @@ const grid_bounds_bot_right : Vector2 = Vector2(
 )
 
 signal turn_changed(to_who: Character)
+signal win(winning_character: Character)
