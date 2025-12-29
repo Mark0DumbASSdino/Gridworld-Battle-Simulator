@@ -8,6 +8,12 @@ class_name ScriptedAIComponent
 
 @export var grid_limit_component : GridLimitComponent
 
+enum states {
+	AGGRESSIVE, # move towards enemy & attacks
+	DEFENSIVE, # runs away directly
+}
+var current_state : states
+
 func _ready() -> void:
 	pass
 
@@ -16,28 +22,29 @@ func move_handle_script_ai() -> void:
 		# Disallows moving when out of energy
 		return
 	
+	_determine_state()
 	
-	
-	if p.distance_from_opponent.x > 0:
-		grid_limit_component.move_x(1)
-	elif p.distance_from_opponent.x < 0:
-		grid_limit_component.move_x(-1)
-	
-	if p.distance_from_opponent.y > 0:
-		grid_limit_component.move_y(1)
-	elif p.distance_from_opponent.y < 0:
-		grid_limit_component.move_y(-1)
+	if current_state == states.AGGRESSIVE:
+		_move_toward()
+	elif current_state == states.DEFENSIVE:
+		_move_away()
 
 func attack_handle_script_ai() -> void:
 	if p.energy <= 0:
 		# Disallows attacking when out of energy
 		return
 	
-	if (
-			p.distance_from_opponent.length() <= 1 and
-			p.allow_attack
-		):
-		p.attacked()
+	if current_state == states.AGGRESSIVE:
+		
+		if (
+				p.distance_from_opponent.length() <= 1 and
+				p.allow_attack
+			):
+			p.attacked()
+		
+	elif current_state == states.DEFENSIVE:
+		
+		pass
 
 func end_turn_handle_scripted_ai() -> void:
 	
@@ -54,3 +61,48 @@ func end_turn_handle_scripted_ai() -> void:
 		elif p == Global.player_2:
 			Global.current_turn = Global.player_1
 			Global.turn_changed.emit(Global.player_1)
+
+func _determine_state() -> void:
+	match p.get_hp_state():
+		p.hp_states.HIGH:
+			current_state = states.AGGRESSIVE
+		p.hp_states.MEDIUM:
+			match randi_range(1,3):
+				1,2: current_state = states.AGGRESSIVE
+				3: current_state = states.DEFENSIVE
+		p.hp_states.LOW:
+			current_state = states.DEFENSIVE
+
+func _move_toward() -> void:
+	if p.distance_from_opponent.x > 0:
+		grid_limit_component.move_x(1)
+	elif p.distance_from_opponent.x < 0:
+		grid_limit_component.move_x(-1)
+	
+	if p.distance_from_opponent.y > 0:
+		grid_limit_component.move_y(1)
+	elif p.distance_from_opponent.y < 0:
+		grid_limit_component.move_y(-1)
+
+func _move_away() -> void:
+	if randf() > 0.1:
+		if p.distance_from_opponent.x > 0:
+			grid_limit_component.move_x(1)
+		elif p.distance_from_opponent.x < 0:
+			grid_limit_component.move_x(-1)
+	else:
+		if randf() > 0.5:
+			grid_limit_component.move_x(1)
+		else:
+			grid_limit_component.move_x(-1)
+	
+	if randf() > 0.1:
+		if p.distance_from_opponent.y > 0:
+			grid_limit_component.move_y(-1)
+		elif p.distance_from_opponent.y < 0:
+			grid_limit_component.move_y(1)
+	else:
+		if randf() > 0.5:
+			grid_limit_component.move_y(1)
+		else:
+			grid_limit_component.move_y(-1)

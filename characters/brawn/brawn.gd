@@ -45,6 +45,8 @@ func _process(delta: float) -> void:
 	for hitbox in hitboxes:
 		hitbox.disabled = not enable_hitbox
 	
+	%Label.text = str(get_hp_state(), get_energy_state())
+	
 	if Global.current_turn != self:
 		# If it ain't yo turn, you can't do stuff
 		return

@@ -52,11 +52,10 @@ func move_y(amount: int) -> void:
 		else:
 			collision_with_other_player_check(0, 1)
 		
-		
-	
 
+var grid_pos_after_move : Vector2
 func collision_with_other_player_check(amount_x: int, amount_y: int) -> void: ## Final check before deciding to move or nah
-	var grid_pos_after_move : Vector2 = Vector2(
+	grid_pos_after_move = Vector2(
 		p.grid_pos.x + amount_x, p.grid_pos.y + amount_y
 	)
 	
@@ -72,6 +71,7 @@ func collision_with_other_player_check(amount_x: int, amount_y: int) -> void: ##
 		else:
 			p.grid_pos = grid_pos_after_move
 			p.moved()
+
 
 func _process(_delta: float) -> void:
 	if is_player_1:
