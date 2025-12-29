@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c2rtvdp2w0mqt"]
+[gd_scene load_steps=16 format=3 uid="uid://c2rtvdp2w0mqt"]
 
 [ext_resource type="Script" uid="uid://cctmir7wtua12" path="res://characters/brawn/brawn.gd" id="1_k1kry"]
 [ext_resource type="Texture2D" uid="uid://dbfemq6g1nagq" path="res://art/icon.svg" id="2_3xfdu"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bwpp048e25aoo" path="res://character_components/scripted_ai_component/scripted_ai_component.tscn" id="3_r5pni"]
 [ext_resource type="PackedScene" uid="uid://dqqd07e06tham" path="res://character_components/grid_limit_component/grid_limit_component.tscn" id="4_2nft6"]
 [ext_resource type="Texture2D" uid="uid://7pd2d2tvj3a7" path="res://art/Trail2.png" id="5_x4tdm"]
+[ext_resource type="AudioStream" uid="uid://bxewy82r6fvq7" path="res://audio/hit.mp3" id="7_1ugb5"]
+[ext_resource type="AudioStream" uid="uid://c7kdggllqqhqw" path="res://audio/Airdash.wav" id="8_8b8pl"]
 
 [sub_resource type="Animation" id="Animation_x4tdm"]
 length = 0.001
@@ -160,7 +162,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5pni"]
-size = Vector2(2, 2)
+size = Vector2(30, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2nft6"]
 size = Vector2(30, 30)
@@ -169,6 +171,7 @@ size = Vector2(30, 30)
 shadow_color = Color(0, 0, 0, 1)
 
 [node name="brawn" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_k1kry")
 max_energy = 4
 
@@ -279,3 +282,21 @@ offset_right = 21.0
 offset_bottom = 35.0
 text = "0"
 label_settings = SubResource("LabelSettings_r5pni")
+
+[node name="sfx" type="Node" parent="."]
+
+[node name="hit" type="AudioStreamPlayer" parent="sfx"]
+unique_name_in_owner = true
+stream = ExtResource("7_1ugb5")
+volume_db = -10.0
+
+[node name="slash" type="AudioStreamPlayer" parent="sfx"]
+unique_name_in_owner = true
+stream = ExtResource("7_1ugb5")
+volume_db = -10.0
+
+[node name="move" type="AudioStreamPlayer" parent="sfx"]
+unique_name_in_owner = true
+stream = ExtResource("8_8b8pl")
+volume_db = -5.0
+pitch_scale = 2.0

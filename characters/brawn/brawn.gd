@@ -66,19 +66,29 @@ func moved() -> void:
 	anim.stop()
 	anim.play("move")
 	
+	%move.pitch_scale = randf_range(1.8, 2.2)
+	%move.play()
+	
 	allow_move = false
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.15).timeout
 	allow_move = true
 
 func attacked() -> void:
+	
 	energy -= 1
 	anim.stop()
 	anim.play("attack")
-
-	enable_hitbox = true
+	
+	%slash.pitch_scale = randf_range(0.8, 1.2)
+	%slash.play()
+	
 	allow_attack = false
+	
+	enable_hitbox = true
 	await get_tree().create_timer(0.1).timeout
 	enable_hitbox = false
+	
+	await get_tree().create_timer(0.05).timeout
 	allow_attack = true
 
 func _hitbox_enter(area: Area2D) -> void:
@@ -95,17 +105,19 @@ func _hitbox_enter(area: Area2D) -> void:
 func _hurtbox_enter(area: Area2D) -> void:
 	if area.name == "hitbox":
 		# Taking damage
+		%hit.pitch_scale = randf_range(0.8, 1.2)
+		%hit.play()
 		
 		if grid_limit_component.is_player_1: # Check if it's P1 taking the damage
 			
 			if Global.get_hp_difference() > 0: # If P1 has hp advantage
 				# P1 has more health but is taking damage from P2, so it should have more chance 
 				# of taking crit damage
-				if randf() < 0.5:
-					# 50% chance of taking crit
+				if randf() < 0.6:
+					# 60% chance of taking crit
 					hp -= 2
 				else:
-					# 50% chance not to
+					# 40% chance not to
 					hp -= 1
 				
 			elif Global.get_hp_difference() < 0: # If P1 has lesser hp/hp disadvantage
@@ -131,11 +143,11 @@ func _hurtbox_enter(area: Area2D) -> void:
 			if Global.get_hp_difference() < 0: # If P2 has hp advantage
 				# P2 has more health but is taking damage from P1, so it should have more chance 
 				# of taking crit damage
-				if randf() < 0.5:
-					# 50% chance of taking crit
+				if randf() < 0.6:
+					# 60% chance of taking crit
 					hp -= 2
 				else:
-					# 50% chance not to
+					# 40% chance not to
 					hp -= 1
 				
 			elif Global.get_hp_difference() > 0: # If P2 has lesser hp/hp disadvantage
