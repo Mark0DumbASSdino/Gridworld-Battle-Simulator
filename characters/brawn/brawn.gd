@@ -50,6 +50,10 @@ func _process(delta: float) -> void:
 	
 	if hp <= 0:
 		Global.someone_won = true
+		if grid_limit_component.is_player_1:
+			Global.winning_character = Global.player_2
+		else:
+			Global.winning_character = Global.player_1
 	
 	if Global.current_turn != self:
 		# If it ain't yo turn, you can't do stuff

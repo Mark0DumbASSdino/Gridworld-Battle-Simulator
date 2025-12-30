@@ -4,7 +4,8 @@ var time : float
 
 func _init() -> void:
 	# Signal connections
-	Global.win.connect(_win)
+	#Global.win.connect(_win)
+	pass
 
 func _ready() -> void:
 	%win.hide()
@@ -20,10 +21,14 @@ func _process(delta: float) -> void:
 	)
 	
 	%wins.text = str(Global.p1_wins," | ", Global.p2_wins)
+	
+	if Global.someone_won and Global.winning_character:
+		%win.show()
+		%win.text = str(
+			Global.winning_character.name, " Wins! \n",
+			"Press R to Restart"
+		)
+	else:
+		%win.hide()
 
-func _win(winning_char: Character) -> void:
-	%win.show()
-	%win.text = str(
-		winning_char.name, " Wins! \n",
-		"Press R to Restart"
-	)
+#func _win(winning_char: Character) -> void:
