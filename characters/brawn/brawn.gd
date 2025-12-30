@@ -24,7 +24,7 @@ var allow_move : bool = true
 const pos_lerp_weight : float = 20
 
 func _ready() -> void:
-	Engine.time_scale = 2
+	Engine.time_scale = 1.5
 	
 	grid_pos = start_pos
 	hp = max_hp
@@ -52,6 +52,7 @@ func _process(delta: float) -> void:
 	
 	if hp <= 0:
 		Global.someone_won = true
+		Global.current_turn = null
 		if grid_limit_component.is_player_1:
 			Global.winning_character = Global.player_2
 		else:
