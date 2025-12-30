@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvofiqi2y6wnr"]
+
+[ext_resource type="Script" uid="uid://d1p8tgn1jlya2" path="res://character_components/q_ai_component/q_ai_component.gd" id="1_bd5bf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bd5bf"]
+font_size = 20
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="q_ai_component" type="Node2D"]
+script = ExtResource("1_bd5bf")
+
+[node name="points" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 24.0
+offset_top = -37.0
+offset_right = 64.0
+offset_bottom = -9.0
+label_settings = SubResource("LabelSettings_bd5bf")

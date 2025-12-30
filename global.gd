@@ -23,8 +23,20 @@ const grid_bounds_bot_right : Vector2 = Vector2(
 	# 3, 2 if it's 6x4
 )
 
+## number between 0 and 1 (e.g., 0.1 means 10% exploration, 90% exploitation).
+## at each step, generates random number
+## if random_num < e; choose random/exploit
+## if random_num > e; choose best/exploit
+const epsilon_greedy : float = 0.1
+
 signal turn_changed(to_who: Character)
 signal win(winning_character: Character)
+
+enum actions {
+	UP, DOWN, LEFT, RIGHT,
+	ATTACK,
+	END_TURN,
+}
 
 func get_hp_difference() -> int:
 	var hp_diff : int = (

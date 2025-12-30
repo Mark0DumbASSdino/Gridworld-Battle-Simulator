@@ -37,6 +37,7 @@ tile_set = ExtResource("2_khowf")
 
 [node name="arrow" type="Label" parent="."]
 unique_name_in_owner = true
+z_index = 4
 offset_left = -126.0
 offset_top = 46.0
 offset_right = -83.0
@@ -55,11 +56,11 @@ player_2 = NodePath("P2")
 [node name="P1" parent="entities" instance=ExtResource("4_npd5f")]
 position = Vector2(-64, 64)
 start_pos = Vector2(-2, 2)
-control_type = 1
 
 [node name="P2" parent="entities" instance=ExtResource("4_npd5f")]
 position = Vector2(96, -32)
 start_pos = Vector2(3, -1)
+control_type = 2
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("5_g1ktd")

@@ -11,6 +11,7 @@ class_name Brawn
 @onready var player_component: PlayerComponent = %player_component
 @onready var scripted_ai_component: ScriptedAIComponent = %scripted_ai_component
 @onready var grid_limit_component: GridLimitComponent = %grid_limit_component
+@onready var q_ai_component: QAIComponent = %q_ai_component
 @onready var hitboxes : Array[CollisionShape2D] = [
 	%hibc, %hibc2, %hibc3, %hibc4
 ]
@@ -20,6 +21,7 @@ var enable_hitbox : bool = false
 var allow_end_turn : bool = true
 var allow_attack : bool = true
 var allow_move : bool = true
+var attack_landed : bool = false
 
 const pos_lerp_weight : float = 20
 
@@ -34,6 +36,11 @@ func _ready() -> void:
 	%hitbox.area_entered.connect(_hitbox_enter)
 	%hurtbox.area_entered.connect(_hurtbox_enter)
 	Global.turn_changed.connect(my_turn_started)
+	
+	if control_type == control_types.QL_AI:
+		%q_ai_component.process_mode = Node.PROCESS_MODE_INHERIT
+	else:
+		%q_ai_component.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _process(delta: float) -> void:
 	
@@ -70,6 +77,8 @@ func _process(delta: float) -> void:
 		scripted_ai_component.move_handle_script_ai()
 		scripted_ai_component.attack_handle_script_ai()
 		scripted_ai_component.end_turn_handle_scripted_ai()
+	elif control_type == control_types.QL_AI:
+		q_ai_component.process_handle()
 
 func moved() -> void:
 	energy -= 1
@@ -92,6 +101,8 @@ func attacked() -> void:
 	%slash.pitch_scale = randf_range(0.8, 1.2)
 	%slash.play()
 	
+	attack_landed = false
+	
 	allow_attack = false
 	
 	enable_hitbox = true
@@ -100,15 +111,23 @@ func attacked() -> void:
 	
 	await get_tree().create_timer(0.05).timeout
 	allow_attack = true
+	
+	if attack_landed:
+		GSignals.hit.emit(grid_limit_component.is_player_1, self)
+		q_ai_component.hit(grid_limit_component.is_player_1, self)
+	else:
+		GSignals.miss.emit(grid_limit_component.is_player_1, self)
+		q_ai_component.miss(grid_limit_component.is_player_1, self)
 
 func _hitbox_enter(area: Area2D) -> void:
 	if area.name == "hurtbox" and area.get_parent() is Character:
 		
-		GSignals.hit.emit(grid_limit_component.is_player_1, self)
+		attack_landed = true
 		
 		if area.get_parent().hp <= 0:
 			
 			GSignals.win.emit(grid_limit_component.is_player_1, self)
+			q_ai_component.win(grid_limit_component.is_player_1, self)
 			
 			Global.win.emit(self)
 
@@ -180,10 +199,12 @@ func _hurtbox_enter(area: Area2D) -> void:
 		
 		
 		GSignals.took_damage.emit(grid_limit_component.is_player_1, self)
+		q_ai_component.took_damage(grid_limit_component.is_player_1, self)
 		
 		if hp <= 0:
 			
 			GSignals.lose.emit(grid_limit_component.is_player_1, self)
+			q_ai_component.lose(grid_limit_component.is_player_1, self)
 			
 			Global.current_turn = null
 

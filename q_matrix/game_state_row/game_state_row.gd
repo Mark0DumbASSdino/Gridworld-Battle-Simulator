@@ -29,7 +29,7 @@ func _ready() -> void:
 					game_state[1] = 0
 					game_state[0] += 1
 					
-
+	
 	
 	%gs_txt.text = str(
 		game_state[0],

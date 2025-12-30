@@ -19,7 +19,17 @@ func _ready() -> void:
 	for n in 54:
 		_create_game_state_row(n)
 
+## Instantiates/Creates all 54 game state rows
+## from 0000 to 2221
 func _create_game_state_row(index: int) -> void:
 	var game_state_row : GameStateRow = game_state_row_scn.instantiate()
 	game_state_row.index = index
 	rows.add_child(game_state_row)
+
+var old_q_value : float
+
+func _get_new_q_value(state: Array[int], action: Global.actions) -> float: ## The new Q-Value
+	
+	old_q_value
+	
+	return 0.1
