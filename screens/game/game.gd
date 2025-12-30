@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 		if (
 			someone_won
 			):
-			await get_tree().create_timer(3).timeout
+			await get_tree().create_timer(.5).timeout
 			get_tree().reload_current_scene()
 
 func _win(winning_char: Character) -> void:
@@ -50,4 +50,4 @@ func _win(winning_char: Character) -> void:
 	
 	Global.someone_won = true
 	someone_won = true
-	get_tree().paused = true
+	#get_tree().paused = true
