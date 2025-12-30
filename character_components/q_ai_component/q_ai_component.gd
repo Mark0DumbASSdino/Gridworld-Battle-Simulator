@@ -7,9 +7,10 @@ class_name QAIComponent
 
 @export var grid_limit_component : GridLimitComponent
 
-var points : float = 0
-var reward : float = 0
 var q_matrix : QMatrix
+var reward: float
+var points: float
+var opponent : Character = Global.player_2
 
 const reward_rules : Dictionary = { ## Contains the rewards for each event that happens for the Q AI
 	"damage_enemy": 1.0,
@@ -33,33 +34,61 @@ func _init() -> void:
 func _ready() -> void:
 	await get_tree().process_frame
 	q_matrix = Global.q_matrix # Gets a reference to the Q Matrix
+	
+	if grid_limit_component.is_player_1:
+		opponent = Global.player_2
+	else:
+		opponent = Global.player_1
 
 func process_handle() -> void:
 	_input_handles()
 
 func hit(is_p1: bool,character:Character) -> void:
+	if character.control_type != character.control_types.QL_AI:
+		return
 	
 	reward = reward_rules["damage_enemy"]
-	points += reward
+	Global.points += reward
 
 func miss(is_p1:bool, character:Character) -> void:
+	if character.control_type != character.control_types.QL_AI:
+		return
 	
-	pass
+	reward = reward_rules["miss"]
+	Global.points += reward
 
 func took_damage(is_p1:bool, character:Character) -> void:
+	if character.control_type != character.control_types.QL_AI:
+		return
 	
-	pass
+	reward = reward_rules["take_damage"]
+	Global.points += reward
 
 func win(is_p1:bool, character:Character) -> void:
+	if character.control_type != character.control_types.QL_AI:
+		return
 	
-	pass
+	reward = reward_rules["win"]
+	Global.points += reward
 
 func lose(is_p1:bool, character:Character) -> void:
+	if character.control_type != character.control_types.QL_AI:
+		return
 	
-	pass
+	reward = reward_rules["lose"]
+	Global.points += reward
 
 func _process(delta: float) -> void:
-	%points.text = str(points)
+	#%points.text = str(Global.points)
+	#%points.text = str(p.distance_from_opponent.length())
+	#%points.text = str(p.get_distance_state())
+	
+	%points.text = str( # HP, ENEMY HP, DISTANCE, ENERGY
+		p.get_hp_state(),
+		opponent.get_hp_state(),
+		p.get_distance_state(),
+		p.get_energy_state()
+	)
 
 func _input_handles() -> void:
 	

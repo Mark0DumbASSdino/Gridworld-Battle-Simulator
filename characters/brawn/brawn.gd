@@ -37,10 +37,9 @@ func _ready() -> void:
 	%hurtbox.area_entered.connect(_hurtbox_enter)
 	Global.turn_changed.connect(my_turn_started)
 	
+	%q_ai_component.process_mode = Node.PROCESS_MODE_DISABLED
 	if control_type == control_types.QL_AI:
 		%q_ai_component.process_mode = Node.PROCESS_MODE_INHERIT
-	else:
-		%q_ai_component.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _process(delta: float) -> void:
 	

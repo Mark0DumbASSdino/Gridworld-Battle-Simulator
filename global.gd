@@ -13,6 +13,10 @@ var q_matrix : QMatrix
 var p1_wins : int
 var p2_wins : int
 
+var points : float = 0 ## Overall points accumulated by the Q AI
+
+var test_game_state_row : GameStateRow
+
 const tile_size : int = 32
 const grid_bounds_top_left : Vector2 = Vector2(
 	-2, -1

@@ -33,3 +33,8 @@ func _get_new_q_value(state: Array[int], action: Global.actions) -> float: ## Th
 	old_q_value
 	
 	return 0.1
+
+var ref_gsr_posy: float
+func _process(delta: float) -> void:
+	ref_gsr_posy = Global.test_game_state_row.global_position.y
+	%arrow.global_position.y = ref_gsr_posy

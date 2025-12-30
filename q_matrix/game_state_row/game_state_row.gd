@@ -30,6 +30,8 @@ func _ready() -> void:
 					game_state[0] += 1
 					
 	
+	if index == 50:
+		Global.test_game_state_row = self
 	
 	%gs_txt.text = str(
 		game_state[0],

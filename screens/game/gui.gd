@@ -11,6 +11,7 @@ func _ready() -> void:
 	%win.hide()
 
 func _process(delta: float) -> void:
+	
 	time = wrapf(time + delta, 0, 180)
 	
 	%stats.global_position.y = (
