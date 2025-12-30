@@ -48,6 +48,9 @@ func _process(delta: float) -> void:
 	#%Label.text = str(get_hp_state(), get_energy_state())
 	%Label.text = str(Global.get_hp_difference())
 	
+	if hp <= 0:
+		Global.someone_won = true
+	
 	if Global.current_turn != self:
 		# If it ain't yo turn, you can't do stuff
 		return
@@ -57,6 +60,7 @@ func _process(delta: float) -> void:
 		player_component.attack_handle_player()
 		player_component.end_turn_handle_player()
 	elif control_type == control_types.SCRIPTED_AI:
+		
 		scripted_ai_component.move_handle_script_ai()
 		scripted_ai_component.attack_handle_script_ai()
 		scripted_ai_component.end_turn_handle_scripted_ai()

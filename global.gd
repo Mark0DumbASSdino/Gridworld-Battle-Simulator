@@ -5,7 +5,7 @@ var player_2 : Character
 var char_speed : float ## How fast the characters move / attack
 
 var current_turn : Character ## Which character's turn it is
-
+var someone_won : bool = false
 var q_matrix : QMatrix
 
 var p1_wins : int

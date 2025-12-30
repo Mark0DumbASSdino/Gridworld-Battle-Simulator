@@ -60,6 +60,8 @@ func end_turn_handle_scripted_ai() -> void:
 			p.allow_end_turn
 			):
 		
+		await get_tree().create_timer(0.1).timeout
+		
 		def_attacks_amount = 1
 		
 		if p == Global.player_1:
