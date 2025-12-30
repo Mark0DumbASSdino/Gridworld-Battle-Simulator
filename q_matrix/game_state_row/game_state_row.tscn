@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0xmym15mmh86"]
+
+[ext_resource type="Script" uid="uid://duls4a0fnd62t" path="res://q_matrix/game_state_row/game_state_row.gd" id="1_beq07"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qpol7"]
+font_size = 20
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="game_state_row" type="HBoxContainer"]
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.14
+alignment = 1
+script = ExtResource("1_beq07")
+
+[node name="gs_txt" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0000
+"
+label_settings = SubResource("LabelSettings_qpol7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="w" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="a" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="s" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="d" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="atk" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="end_turn" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "0"
+label_settings = SubResource("LabelSettings_qpol7")
+horizontal_alignment = 1
+vertical_alignment = 1
