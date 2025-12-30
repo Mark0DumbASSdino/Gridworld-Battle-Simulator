@@ -2,10 +2,12 @@ extends Node
 
 var player_1 : Character
 var player_2 : Character
+var winning_character : Character
 var char_speed : float ## How fast the characters move / attack
+var someone_won : bool
 
 var current_turn : Character ## Which character's turn it is
-var someone_won : bool = false
+
 var q_matrix : QMatrix
 
 var p1_wins : int

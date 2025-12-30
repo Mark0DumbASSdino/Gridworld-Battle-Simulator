@@ -3,6 +3,7 @@ extends Node2D
 ## Where the combat & shit happens
 class_name Game
 
+var someone_won : bool = false
 var arrow_desired_pos : Vector2
 
 func _init() -> void:
@@ -10,7 +11,7 @@ func _init() -> void:
 	Global.win.connect(_win)
 
 func _ready() -> void:
-	Global.someone_won = false
+	someone_won = false
 	get_tree().paused = false
 
 func _input(_event: InputEvent) -> void:
@@ -34,17 +35,19 @@ func _process(delta: float) -> void:
 		):
 		if (
 			Input.is_action_just_pressed("restart") and 
-			Global.someone_won
+			someone_won
 			):
 			get_tree().reload_current_scene()
 	else:
 		if (
-			Global.someone_won
+			someone_won
 			):
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(3).timeout
 			get_tree().reload_current_scene()
 
 func _win(winning_char: Character) -> void:
 	#print(winning_char.name, " Wins!")
+	
 	Global.someone_won = true
+	someone_won = true
 	get_tree().paused = true

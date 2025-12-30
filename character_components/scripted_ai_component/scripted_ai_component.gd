@@ -60,7 +60,7 @@ func end_turn_handle_scripted_ai() -> void:
 			p.allow_end_turn
 			):
 		
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.2).timeout
 		
 		def_attacks_amount = 1
 		

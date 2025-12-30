@@ -173,10 +173,7 @@ shadow_color = Color(0, 0, 0, 1)
 [node name="brawn" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_k1kry")
-start_pos = null
-max_hp = null
 max_energy = 4
-control_type = null
 
 [node name="player_component" parent="." node_paths=PackedStringArray("grid_limit_component") instance=ExtResource("3_mfq06")]
 unique_name_in_owner = true

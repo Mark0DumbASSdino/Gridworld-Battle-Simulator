@@ -50,6 +50,10 @@ func _process(delta: float) -> void:
 	
 	if hp <= 0:
 		Global.someone_won = true
+		if grid_limit_component.is_player_1:
+			Global.winning_character = Global.player_2
+		else:
+			Global.winning_character = Global.player_1
 	
 	if Global.current_turn != self:
 		# If it ain't yo turn, you can't do stuff
@@ -60,7 +64,6 @@ func _process(delta: float) -> void:
 		player_component.attack_handle_player()
 		player_component.end_turn_handle_player()
 	elif control_type == control_types.SCRIPTED_AI:
-		
 		scripted_ai_component.move_handle_script_ai()
 		scripted_ai_component.attack_handle_script_ai()
 		scripted_ai_component.end_turn_handle_scripted_ai()
