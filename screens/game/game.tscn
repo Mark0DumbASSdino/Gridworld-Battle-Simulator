@@ -55,6 +55,7 @@ player_2 = NodePath("P2")
 [node name="P1" parent="entities" instance=ExtResource("4_npd5f")]
 position = Vector2(-64, 64)
 start_pos = Vector2(-2, 2)
+control_type = 1
 
 [node name="P2" parent="entities" instance=ExtResource("4_npd5f")]
 position = Vector2(96, -32)
