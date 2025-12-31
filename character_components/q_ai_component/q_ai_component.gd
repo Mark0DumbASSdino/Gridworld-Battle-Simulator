@@ -11,6 +11,12 @@ var q_matrix : QMatrix
 var reward: float
 var points: float
 var opponent : Character = Global.player_2
+var game_state_code : Array[int] = [
+	0, # HP (0 1 2) [0]
+	0, # Enemy HP (0 1 2) [1]
+	0, # Distance (0 1 2) [2]
+	0, # Energy (0 1) [3]
+]
 
 const reward_rules : Dictionary = { ## Contains the rewards for each event that happens for the Q AI
 	"damage_enemy": 1.0,
@@ -19,6 +25,15 @@ const reward_rules : Dictionary = { ## Contains the rewards for each event that 
 	"lose": -10.0,
 	"miss": -0.5,
 }
+
+## number between 0 and 1 (e.g., 0.1 means 10% exploration, 90% exploitation).
+## at each step, generates random number
+## if random_num < e; choose random/exploit
+## if random_num > e; choose best/exploit
+const epsilon_greedy : float = 0.1
+
+## gamma / discount rate
+const gamma_discount_rate : float = 0.8
 
 func _init() -> void:
 	# Signal connections
@@ -83,12 +98,21 @@ func _process(delta: float) -> void:
 	#%points.text = str(p.distance_from_opponent.length())
 	#%points.text = str(p.get_distance_state())
 	
-	%points.text = str( # HP, ENEMY HP, DISTANCE, ENERGY
-		p.get_hp_state(),
-		opponent.get_hp_state(),
-		p.get_distance_state(),
-		p.get_energy_state()
-	)
+	game_state_code[0] = p.get_hp_state()
+	game_state_code[1] = opponent.get_hp_state()
+	game_state_code[2] = p.get_distance_state()
+	game_state_code[3] = p.get_energy_state()
+	
+	q_matrix.game_state_code = game_state_code
+	
+	#%points.text = str( # HP, ENEMY HP, DISTANCE, ENERGY
+		#p.get_hp_state(),
+		#opponent.get_hp_state(),
+		#p.get_distance_state(),
+		#p.get_energy_state()
+	#)
+	
+	%points.text = str(game_state_code)
 
 func _input_handles() -> void:
 	

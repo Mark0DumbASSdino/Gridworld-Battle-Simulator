@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://duls4a0fnd62t" path="res://q_matrix/game_state_row/game_state_row.gd" id="1_beq07"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qpol7"]
-font_size = 25
+font_size = 20
 shadow_color = Color(0, 0, 0, 1)
 
 [node name="game_state_row" type="HBoxContainer"]

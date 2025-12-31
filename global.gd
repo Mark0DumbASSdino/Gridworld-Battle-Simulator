@@ -15,7 +15,7 @@ var p2_wins : int
 
 var points : float = 0 ## Overall points accumulated by the Q AI
 
-var test_game_state_row : GameStateRow
+var current_game_state_row : GameStateRow 
 
 const tile_size : int = 32
 const grid_bounds_top_left : Vector2 = Vector2(
@@ -26,12 +26,6 @@ const grid_bounds_bot_right : Vector2 = Vector2(
 	3, 2
 	# 3, 2 if it's 6x4
 )
-
-## number between 0 and 1 (e.g., 0.1 means 10% exploration, 90% exploitation).
-## at each step, generates random number
-## if random_num < e; choose random/exploit
-## if random_num > e; choose best/exploit
-const epsilon_greedy : float = 0.1
 
 signal turn_changed(to_who: Character)
 signal win(winning_character: Character)
