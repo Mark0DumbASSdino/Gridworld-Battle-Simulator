@@ -26,7 +26,6 @@ var attack_landed : bool = false
 const pos_lerp_weight : float = 20
 
 func _ready() -> void:
-	Engine.time_scale = 1.5
 	
 	grid_pos = start_pos
 	hp = max_hp

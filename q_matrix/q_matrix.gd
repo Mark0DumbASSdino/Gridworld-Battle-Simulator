@@ -39,11 +39,11 @@ func _create_game_state_row(index: int) -> void:
 	game_state_row.index = index
 	rows.add_child(game_state_row)
 
-var old_q_value : float
+var old_q : float
 
-func _get_new_q_value(state: Array[int], action: Global.actions) -> float: ## The new Q-Value
+func _get_new_q(state: Array[int], action: Global.actions) -> float: ## The new Q-Value
 	
-	#old_q_value
+	#old_q
 	
 	return 0.1
 
@@ -51,3 +51,4 @@ func _process(delta: float) -> void:
 	if Global.current_game_state_row:
 		current_game_state_row_posy = Global.current_game_state_row.global_position.y
 		%arrow.global_position.y = current_game_state_row_posy
+	

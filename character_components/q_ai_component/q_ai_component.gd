@@ -9,7 +9,6 @@ class_name QAIComponent
 
 var q_matrix : QMatrix
 var reward: float
-var points: float
 var opponent : Character = Global.player_2
 var game_state_code : Array[int] = [
 	0, # HP (0 1 2) [0]
@@ -112,7 +111,7 @@ func _process(delta: float) -> void:
 		#p.get_energy_state()
 	#)
 	
-	%points.text = str(game_state_code)
+	%points.text = str(game_state_code, ":", Global.points)
 
 func _input_handles() -> void:
 	
@@ -146,3 +145,4 @@ func _input_handles() -> void:
 			p.allow_attack
 		):
 		p.attacked()
+	
